@@ -1,11 +1,20 @@
-import express from 'express';
-import { getGroups, createGroup, updateGroup, deleteGroup } from '../controllers/group.controllers.js';  // Asegúrate de que la ruta aquí sea correcta
+import Router from "express-promise-router";
+import groupRouter from './group.router.js';
+import {
+    connectDatabase,
+    commitDatabase,
+    rollbackDatabase
+} from "../lib/database.js";
 
-const router = express.Router();
+const AsyncRouter = () => {
+    const router = Router();
 
-router.get('/groups', getGroups);
-router.post('/groups', createGroup);
-router.put('/groups/:id', updateGroup);
-router.delete('/groups/:id', deleteGroup);
+    router.use(connectDatabase);
+    router.use("/groups", groupRouter());
+    router.use(commitDatabase);
+    router.use(rollbackDatabase);
 
-export default router;
+    return router;
+}
+
+export default AsyncRouter;
