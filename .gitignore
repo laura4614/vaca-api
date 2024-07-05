@@ -1,0 +1,10 @@
+#ignore playwright test files
+node_modules/
+/functional-test/test-results/
+/functional-test/playwright-report/
+/functional-test/blob-report/
+/functional-test/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
